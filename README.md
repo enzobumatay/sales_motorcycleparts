@@ -1,4 +1,4 @@
-<img width="453" height="106" alt="image" src="https://github.com/user-attachments/assets/31f6420b-9bc4-44e5-89b2-b33169a29ae7" /><img width="438" height="103" alt="image" src="https://github.com/user-attachments/assets/286d7cdc-a34a-4bb7-81d6-134fa673bec3" /># Analyzing Motorcycle Part Sales
+# Analyzing Motorcycle Part Sales
 This project analyzes motorcycle parts sales data to understand revenue performance across product lines, warehouses, customer segments, payment methods, and time. Using SQL, the analysis identifies key sales drivers, performance trends, and growth opportunities to support data-driven decisions that can improve overall revenue performance.
 
 The analysis is guided by the following overall business question:
@@ -47,18 +47,23 @@ The inspection found no NULL values requiring treatment, and the available value
 
 ## Analysis and Key Findings
 The analysis begins by looking at where revenue is coming from. Among the product lines, Suspension & Traction is the strongest revenue contributor, followed by Frame & Body and Electrical System. This establishes the company's primary product-line drivers and provides a starting point for understanding overall sales performance.
+
 ``<img width="527" height="210" alt="image" src="https://github.com/user-attachments/assets/ea9c7d73-14e6-49a0-8065-f6f63b77ac2f" />
 
 Revenue performance also varies significantly across warehouses. Central generates the highest revenue at $141,982.88, followed by North at $100,203.63 and West at $46,926.49. This suggests that sales performance is not evenly distributed across locations, making warehouse-level performance an important factor when identifying opportunities for improvement.
+
 ``<img width="334" height="133" alt="image" src="https://github.com/user-attachments/assets/ef2784b5-4a43-45fa-aacf-1e54d17d450e" />
 
 Looking at customer segments, Wholesale generates $159,642.33, compared with $129,470.67 from Retail. Wholesale therefore represents the larger revenue contributor, indicating that customer type plays an important role in the company's overall sales performance.
+
 ``<img width="453" height="106" alt="image" src="https://github.com/user-attachments/assets/4562d431-e32b-4b1c-98ef-2d0683873668" />
 
 Monthly revenue dipped slightly in July before recovering in August, suggesting a positive recent trend. Further analysis of payment methods, product–warehouse performance, and monthly growth helps identify where revenue is being generated most efficiently and which product lines show the strongest growth potential.
+
 ``<img width="706" height="127" alt="image" src="https://github.com/user-attachments/assets/98b7c18a-8841-4aff-aa0c-7e9c5fead797" />
 
 A more detailed view of Wholesale net revenue reveals how individual product lines perform across months and warehouses. This helps identify where the company's strongest combinations of product, location, and customer segment are concentrated. Comparing these combinations month by month provides a more targeted view of where revenue is being generated most efficiently.
+
 ``<img width="850" height="576" alt="image" src="https://github.com/user-attachments/assets/c0feac8f-b797-4b3a-82e5-0222cb5ddd06" />
 
 Overall, the findings point to opportunities to strengthen top-performing products and locations while identifying high-growth areas for further revenue expansion.
