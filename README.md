@@ -52,7 +52,7 @@ The analysis begins by looking at where revenue is coming from. Among the produc
 
 Revenue performance also varies significantly across warehouses. Central generates the highest revenue at $141,982.88, followed by North at $100,203.63 and West at $46,926.49. This suggests that sales performance is not evenly distributed across locations, making warehouse-level performance an important factor when identifying opportunities for improvement.
 
-<p align="center">``<img width="334" height="133" alt="image" src="https://github.com/user-attachments/assets/ef2784b5-4a43-45fa-aacf-1e54d17d450e" /></p>
+<p align="center"><img width="334" height="133" alt="image" src="https://github.com/user-attachments/assets/ef2784b5-4a43-45fa-aacf-1e54d17d450e" /></p>
 
 Looking at customer segments, Wholesale generates $159,642.33, compared with $129,470.67 from Retail. Wholesale therefore represents the larger revenue contributor, indicating that customer type plays an important role in the company's overall sales performance.
 
