@@ -1,0 +1,9 @@
+--This section contains all the SQL queries used to perform the analysis.
+
+--schema inspection
+--check column vs data_type vs nullable
+SELECT column_name,
+	data_type,
+	is_nullable
+FROM information_schema.columns
+WHERE table_name = 'sales'
