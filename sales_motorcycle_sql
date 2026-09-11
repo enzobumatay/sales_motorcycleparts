@@ -7,3 +7,133 @@ SELECT column_name,
 	is_nullable
 FROM information_schema.columns
 WHERE table_name = 'sales'
+
+-- Which product lines generate the most revenue?
+SELECT product_line,
+	SUM(total) as revenue
+FROM sales
+GROUP BY product_line
+ORDER BY revenue DESC;
+
+--Which warehouses have the best sales performance?
+SELECT warehouse,
+	SUM(total) as revenue
+FROM sales
+GROUP BY warehouse
+ORDER BY revenue DESC
+
+--How do Wholesale and Retail sales compare?
+SELECT client_type,
+	sum(total) as revenue
+FROM sales
+GROUP BY client_type
+ORDER by revenue DESC
+
+--How does sales revenue change month-to-month?
+WITH monthly_revenue AS (
+    SELECT
+        DATE_TRUNC('month', date) AS month,
+        SUM(total) AS revenue
+    FROM sales
+    GROUP BY DATE_TRUNC('month', date))
+
+SELECT
+    TO_CHAR(month, 'Month') AS month,
+    revenue,
+    LAG(revenue) OVER (
+        ORDER BY month) AS previous_month_revenue,
+    revenue - LAG(revenue) OVER (
+        ORDER BY month) AS revenue_change,
+    ROUND((revenue - 
+			LAG(revenue) OVER (ORDER BY month))
+        / LAG(revenue) OVER (ORDER BY month) * 100,
+        2) AS revenue_change_pct
+FROM monthly_revenue
+ORDER BY month DESC;
+
+--Which payment methods generate the most sales and incur the highest payment fees?
+SELECT payment,
+	SUM(total) as revenue,
+	SUM(payment_fee) as payment_fees
+FROM sales
+GROUP BY payment
+ORDER BY revenue DESC, payment_fees
+
+--How much is Wholesale net revenue each product line generated per month per warehouse?
+SELECT 
+	product_line,
+	to_char(date, 'Month') as month,
+	warehouse,
+	SUM(total) - SUM(payment_fee) as net_revenue
+FROM sales
+WHERE client_type = 'Wholesale'
+GROUP BY product_line, month, warehouse
+ORDER BY product_line, MIN(date), net_revenue DESC
+
+--Which product line and warehouse combinations generate the highest net revenue each month?
+SELECT 
+	product_line,
+	warehouse,
+	TO_CHAR(DATE_TRUNC('month', date), 'Month') AS month,
+	SUM(total) - SUM(payment_fee) as net_revenue
+FROM sales
+GROUP BY 
+	product_line,
+	DATE_TRUNC('month', date),
+	warehouse
+ORDER BY 
+	DATE_TRUNC('month', date), 
+	net_revenue DESC
+
+--Which product line and warehouse combinations generate the highest net revenue each month?
+SELECT 
+	product_line,
+	warehouse,
+	TO_CHAR(DATE_TRUNC('month', date), 'Month') AS month,
+	SUM(total) - SUM(payment_fee) as net_revenue
+FROM sales
+GROUP BY 
+	product_line,
+	DATE_TRUNC('month', date),
+	warehouse
+ORDER BY 
+	DATE_TRUNC('month', date), 
+	net_revenue DESC
+
+--Which product lines have the highest month-over-month revenue growth?
+---CTE for monthly revenue & revenue with previous month
+WITH monthly_revenue AS (
+    SELECT
+        product_line,
+        DATE_TRUNC('month', date) AS month,
+        SUM(total) AS revenue
+    FROM sales
+    GROUP BY
+        product_line,
+        DATE_TRUNC('month', date)),
+
+revenue_with_previous AS (
+    SELECT
+        product_line,
+        month,
+        revenue,
+        LAG(revenue) OVER (
+            PARTITION BY product_line
+            ORDER BY month
+        ) AS previous_month_revenue
+    FROM monthly_revenue)
+
+SELECT
+    product_line,
+    TO_CHAR(month, 'Month') AS month,
+    revenue,
+    previous_month_revenue,
+    revenue - previous_month_revenue AS revenue_change,
+    ROUND(
+        (revenue - previous_month_revenue)
+        / previous_month_revenue * 100, 2) AS revenue_growth_pct
+	
+FROM revenue_with_previous
+ORDER BY
+	product_line,
+	month DESC
